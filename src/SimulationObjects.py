@@ -57,9 +57,9 @@ class Modulation:
 		self.min_margin=min_margin
 		self.disponibility=disponibility
 
-#TODO optimize GroundStation & PropagationChanel classes
+#TODO optimize GroundStation & PropagationChannel classes
 #(séparate antenna temp noise & rain)
-class PropagationChanel:
+class PropagationChannel:
 	"""Def"""
 	def __init__(self,r0_01_precipitation_intensity,athmospherical_loss,
 			temp_sky,temp_ground,temp_weather):
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 	for i in var_modu : print(i+" \t= "+str(var_modu[i]))
 
 	print("\n\tPropagation Test")
-	propa=PropagationChanel(85,0.2,20,45,275)
+	propa=PropagationChannel(85,0.2,20,45,275)
 	var_propa=vars(propa)
 	for i in var_propa : print(i+" \t= "+str(var_propa[i]))
 
