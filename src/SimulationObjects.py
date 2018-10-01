@@ -73,7 +73,27 @@ class PropagationChanel:
 	
 
 #Validation Tests
+if __name__ == "__main__":
+	print("\tSatellite Test")
+	gomX=Satellite(420,0.5,54,-3.2,20)
+	var_gomX=vars(gomX)
+	for i in var_gomX : print(i+" \t= "+str(var_gomX[i]))
+	
+	print("\n\tGround Station Test")
+	kurou_station=GroundStation(5.1,300,11.125,45,5,0.1,0.65,
+		150,850,290,400,50,-10,-0.5)
+	var_kurou=vars(kurou_station)
+	for i in var_kurou : print(i+" \t= "+str(var_kurou[i]))
 
+	print("\n\tModulation Test")
+	gom_modu=Modulation(8.2,2,9.59,0.25,0.5,3,.99)
+	var_modu=vars(gom_modu)
+	for i in var_modu : print(i+" \t= "+str(var_modu[i]))
+
+	print("\n\tPropagation Test")
+	propa=PropagationChanel(85,0.2,20,45,275)
+	var_propa=vars(propa)
+	for i in var_propa : print(i+" \t= "+str(var_propa[i]))
 
 
 
