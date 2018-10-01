@@ -8,6 +8,7 @@ EARTH_RADUIS = 6371				#km
 BOLTZMAN_CONST = 1.38099e-23	#j.k^-1
 
 class Satellite:
+#TODO make mispointing, gain & axial ration function of theta 
 	"""Def"""
 	def __init__(self,altitude,onboard_loss,
 					mispointing,gain,axial_ratio):
