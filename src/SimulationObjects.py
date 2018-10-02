@@ -80,7 +80,6 @@ class PropagationChannel:
 
 	def computeInputAntennaNoise(self):
 		real_athmospherical_loss = dB2real(self.athmospherical_loss)
-		print(real_athmospherical_loss)
 		return self.temp_sky*real_athmospherical_loss + \
 					self.temp_weather*(1-1/real_athmospherical_loss) + \
 					self.temp_ground
