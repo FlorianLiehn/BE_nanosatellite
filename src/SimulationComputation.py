@@ -1,6 +1,5 @@
 #! /usr/bin/python3
 
-from math import pi,asin,cos,log10,exp,sqrt
 if __name__=="__main__":
 	from SimulationObjects import *
 else:
@@ -43,11 +42,8 @@ class CommunicationSimulation:
 		#TODO create all classes needed
 
 
-	def power2dB(self,power):return 10*log10(power)
-	def dB2power(self,db):return 10*pow(10,db)
-
 	def computePIRE(self,input_power,theta):
-		return self.power2dB(input_power)+self.satellite.gain
+		return real2dB(input_power)+self.satellite.gain
 
 	def computeDistance(self,theta):
 		#compute Differential latitude
@@ -63,7 +59,7 @@ class CommunicationSimulation:
 		d=self.computeDistance(theta)
 		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
 
-		return 2 * self.power2dB( lamb/(4*pi*d) )
+		return 2 * real2dB( lamb/(4*pi*d) )
 		
 	
 	def computeMargin(self,theta,input_power,data_rate):

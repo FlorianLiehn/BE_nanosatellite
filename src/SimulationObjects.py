@@ -1,11 +1,16 @@
 #! /usr/bin/python3
 
+from math import pi,asin,cos,log10,exp,sqrt
+
 #TODO make all comments (why class and units of each parameters)
 
 #Constants
 LIGHT_SPEED = 2.99792458e8		#m.s^-1
 EARTH_RADUIS = 6371				#km
 BOLTZMAN_CONST = 1.38099e-23	#j.k^-1
+
+def real2dB(real):return 10*log10(real)
+def dB2real(db):return pow(10,db/10)
 
 class Satellite:
 #TODO make mispointing, gain & axial ration function of theta 
@@ -71,7 +76,15 @@ class PropagationChannel:
 		self.temp_ground=temp_ground
 		self.temp_weather=temp_weather
 
-	
+		self.input_antenna_noise=self.computeInputAntennaNoise()
+
+	def computeInputAntennaNoise(self):
+		real_athmospherical_loss = dB2real(self.athmospherical_loss)
+		print(real_athmospherical_loss)
+		return self.temp_sky*real_athmospherical_loss + \
+					self.temp_weather*(1-1/real_athmospherical_loss) + \
+					self.temp_ground
+
 
 #Validation Tests
 if __name__ == "__main__":

@@ -12,10 +12,11 @@ if __name__ == "__main__":
 	#create Modulation
 	gom_modu=Modulation(8.2,2,9.59,0.25,0.5,3,.99)
 	#Create PropagationChannel
-	propa=PropagationChannel(85,0.2,20,45,275)
+	propa=PropagationChannel(85,-0.2,20,45,275)
 	#Create the final simulation
 	simu=CommunicationSimulation(gomX,kurou_station,gom_modu,propa)
 
 	print("puissance:",simu.computePIRE(1,90)," dBw")
 	print("distance:",simu.computeDistance(45)/1000,"km")
 	print("perte espace libre:",simu.computeFreeSpaceLoss(0),"dB")
+	print("Antenna Temp",simu.propa_channel.input_antenna_noise,"K")
