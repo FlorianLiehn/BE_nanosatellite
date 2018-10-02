@@ -42,6 +42,7 @@ class CommunicationSimulation:
 		#Create & compute EquationComputerClasses
 		#TODO create all classes needed
 
+
 	def power2dB(self,power):return 10*log10(power)
 	def dB2power(self,db):return 10*pow(10,db)
 
@@ -56,7 +57,14 @@ class CommunicationSimulation:
 		d2 = EARTH_RADUIS**2 + (EARTH_RADUIS+self.satellite.altitude)**2 \
 					- 2 * EARTH_RADUIS * (EARTH_RADUIS+self.satellite.altitude) * cos( diff_lat/180*pi )
 
-		return sqrt(d2)
+		return sqrt(d2)*1000#m
+
+	def computeFreeSpaceLoss(self,theta):
+		d=self.computeDistance(theta)
+		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
+
+		return 2 * self.power2dB( lamb/(4*pi*d) )
+		
 	
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""

@@ -17,4 +17,5 @@ if __name__ == "__main__":
 	simu=CommunicationSimulation(gomX,kurou_station,gom_modu,propa)
 
 	print("puissance:",simu.computePIRE(1,90)," dBw")
-	print("distance:",simu.computeDistance(45),"km")
+	print("distance:",simu.computeDistance(45)/1000,"km")
+	print("perte espace libre:",simu.computeFreeSpaceLoss(0),"dB")
