@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-from src.SimulationObjects import *
+from src.SimulationComputation import *
 
 
 if __name__ == "__main__":
@@ -16,4 +16,5 @@ if __name__ == "__main__":
 	#Create the final simulation
 	simu=CommunicationSimulation(gomX,kurou_station,gom_modu,propa)
 
-	
+	print("puissance:",simu.computePIRE(1,90)," dBw")
+	print("distance:",simu.computeDistance(45),"km")
