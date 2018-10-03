@@ -108,7 +108,9 @@ if __name__ == "__main__":
 	var_propa=vars(propa)
 	for i in var_propa : print(i+" \t= "+str(var_propa[i]))
 
-
-
+	print("\n\tdB conversion Test")
+	test_dB=152
+	print("{0} = {1:2.2f}dB = {2:3.2f}".format(test_dB,real2dB(test_dB),dB2real(real2dB(test_dB)) ) )
+	
 
 
