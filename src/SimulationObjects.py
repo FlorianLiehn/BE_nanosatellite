@@ -40,13 +40,25 @@ class GroundStation:
 		self.min_elevation=min_elevation
 		self.mispointing=mispointing
 		self.antenna_efficiency=antenna_efficiency
+		self.temp_cable=temp_cable
+		self.gain_cable=gain_cable
+		#Receiver
 		self.temp_LNA=temp_LNA
 		self.gain_LNA=gain_LNA
 		self.temp_mixer=temp_mixer
 		self.gain_mixer=gain_mixer
-		self.temp_cable=temp_cable
-		self.gain_cable=gain_cable
 		self.temp_IFA=temp_IFA
+	
+		self.gain_receiver=self.computeReceiverGain()
+		self.temp_receiver=self.computeReceiverTemperature()
+
+	def computeReceiverGain(self):
+		return self.gain_LNA+self.gain_mixer+0 #IFA gain
+	def computeReceiverTemperature(self):
+		lin_gain_LNA=dB2real(self.gain_LNA)
+		lin_gain_mixer=dB2real(self.gain_mixer)
+		return self.temp_LNA + self.temp_mixer/lin_gain_LNA + self.temp_IFA/(lin_gain_LNA*lin_gain_mixer)
+
 
 #TODO create QPSK,8PSK,16PSK patern
 class Modulation:

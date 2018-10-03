@@ -20,3 +20,5 @@ if __name__ == "__main__":
 	print("distance:",simu.computeDistance(45)/1000,"km")
 	print("perte espace libre:",simu.computeFreeSpaceLoss(0),"dB")
 	print("Antenna Temp",simu.propa_channel.input_antenna_noise,"K")
+	print("Receiver Gain",simu.ground_sation.gain_receiver,"dB")
+	print("Receiver Temp",simu.ground_sation.temp_receiver,"K")
