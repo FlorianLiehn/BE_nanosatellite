@@ -53,6 +53,11 @@ class CommunicationSimulation:
 		
 		return real2dB(polar_loss)
 
+	def computeFinalReceiverTemperature(self):
+		lin_cable_gain=dB2real(self.ground_sation.gain_cable)
+		return lin_cable_gain*self.propa_channel.input_antenna_noise + \
+				(1-lin_cable_gain)*self.ground_sation.temp_cable + self.ground_sation.temp_receiver
+
 	def computeGroundGain(self,theta):
 		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
 		theta3dB=70*lamb/self.ground_sation.antenna_diameter
