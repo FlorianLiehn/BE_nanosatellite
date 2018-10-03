@@ -42,6 +42,17 @@ class CommunicationSimulation:
 
 		return 2 * real2dB( lamb/(4*pi*d) )
 		
+	def computePolaraisationLoss(self,theta):
+		ar_tx=self.satellite.axial_ratio
+		ar_rx=self.ground_sation.axial_ratio
+		ellipse_angle=self.ground_sation.polarisation_ellipse_angle
+
+		polar_loss = 4*ar_tx*ar_rx + (ar_tx**2-1)*(ar_rx**2-1)*cos(pi/180*2*ellipse_angle)
+		polar_loss/= 2*(ar_tx**2+1)*(ar_rx**2+1)
+		polar_loss+= 0.5
+		
+		return real2dB(polar_loss)
+
 	
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""

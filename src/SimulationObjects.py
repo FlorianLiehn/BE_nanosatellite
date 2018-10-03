@@ -40,7 +40,7 @@ class GroundStation:
 		self.min_elevation=min_elevation
 		self.mispointing=mispointing
 		self.antenna_efficiency=antenna_efficiency
-		self.axial_factor=1
+		self.axial_ratio=1
 		self.temp_cable=temp_cable
 		self.gain_cable=gain_cable
 		#Receiver
