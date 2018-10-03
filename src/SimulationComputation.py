@@ -53,6 +53,11 @@ class CommunicationSimulation:
 		
 		return real2dB(polar_loss)
 
+	def computeGroundGain(self,theta):
+		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
+		theta3dB=70*lamb/self.ground_sation.antenna_diameter
+		perfect_gain=36000/theta3dB**2
+		return real2dB(perfect_gain)
 	
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""
