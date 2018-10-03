@@ -13,10 +13,10 @@ else:
 
 class CommunicationSimulation:
 	"""Def"""
-	def __init__(self,satellite,ground_sation,modulation,propa_channel):
+	def __init__(self,satellite,ground_station,modulation,propa_channel):
 		"""init"""
 		self.satellite=satellite
-		self.ground_sation=ground_sation
+		self.ground_station=ground_station
 		self.modulation=modulation
 		self.propa_channel=propa_channel
 		#Create & compute EquationComputerClasses
@@ -44,8 +44,8 @@ class CommunicationSimulation:
 		
 	def computePolaraisationLoss(self,theta):
 		ar_tx=self.satellite.axial_ratio
-		ar_rx=self.ground_sation.axial_ratio
-		ellipse_angle=self.ground_sation.polarisation_ellipse_angle
+		ar_rx=self.ground_station.axial_ratio
+		ellipse_angle=self.ground_station.polarisation_ellipse_angle
 
 		polar_loss = 4*ar_tx*ar_rx + (ar_tx**2-1)*(ar_rx**2-1)*cos(pi/180*2*ellipse_angle)
 		polar_loss/= 2*(ar_tx**2+1)*(ar_rx**2+1)
@@ -54,13 +54,13 @@ class CommunicationSimulation:
 		return real2dB(polar_loss)
 
 	def computeFinalReceiverTemperature(self):
-		lin_cable_gain=dB2real(self.ground_sation.gain_cable)
+		lin_cable_gain=dB2real(self.ground_station.gain_cable)
 		return lin_cable_gain*self.propa_channel.input_antenna_noise + \
-				(1-lin_cable_gain)*self.ground_sation.temp_cable + self.ground_sation.temp_receiver
+				(1-lin_cable_gain)*self.ground_station.temp_cable + self.ground_station.temp_receiver
 
 	def computeGroundGain(self,theta):
 		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
-		theta3dB=70*lamb/self.ground_sation.antenna_diameter
+		theta3dB=70*lamb/self.ground_station.antenna_diameter
 		perfect_gain=36000/theta3dB**2
 		return real2dB(perfect_gain)
 	
