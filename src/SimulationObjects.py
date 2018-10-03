@@ -67,10 +67,10 @@ class Modulation:
 #(séparate antenna temp noise & rain)
 class PropagationChannel:
 	"""Def"""
-	def __init__(self,r0_01_precipitation_intensity,athmospherical_loss,
+	def __init__(self,r0_01_rainfall_rate,athmospherical_loss,
 			temp_sky,temp_ground,temp_weather):
 		"""init"""
-		self.r0_01_precipitation_intensity=r0_01_precipitation_intensity
+		self.r0_01_rainfall_rate=r0_01_rainfall_rate
 		self.athmospherical_loss=athmospherical_loss
 		self.temp_sky=temp_sky
 		self.temp_ground=temp_ground
