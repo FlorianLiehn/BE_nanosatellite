@@ -25,3 +25,5 @@ if __name__ == "__main__":
 	print("Receiver Temp",simu.ground_station.temp_receiver,"K")
 	print("Reception Temp",simu.computeFinalReceiverTemperature(),"K")
 	print("Antenna gain",simu.computeGroundGain(0),"dB")
+	print("Reception Gain",simu.computeFinalReceiverGain(),"dB")
+	print("Figure of Merit",simu.computeFinalReceiverFigureOfMerit())
