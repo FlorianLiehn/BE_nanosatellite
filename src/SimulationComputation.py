@@ -87,6 +87,9 @@ class CommunicationSimulation:
 	def computeFinalNoise(self,data_rate):
 		return real2dB( self.computeFinalReceiverTemperature() * BOLTZMAN_CONST * self.computeBandwidth(data_rate) )
 
+	def computeC_N0(self,power,theta,data_rate):
+		return self.computeInputReceiverPower(power,theta)-self.computeFinalNoise(data_rate)
+
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""
 		#TODO compute all dynamics values & return margin

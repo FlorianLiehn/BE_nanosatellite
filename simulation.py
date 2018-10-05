@@ -32,3 +32,4 @@ if __name__ == "__main__":
 	print("Input Power",simu.computeInputReceiverPower(1,30), "dBw")
 	print("Bandwidth",simu.computeBandwidth(2e6), "Hz")
 	print("Input Noise",simu.computeFinalNoise(2e6), "dB")
+	print("C/N0",simu.computeC_N0(1,30,2e6), "dB")
