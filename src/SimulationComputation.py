@@ -24,7 +24,7 @@ class CommunicationSimulation:
 
 	def computeBandwidth(self,data_rate):
 		t_s=self.modulation.bits_per_symbol/self.modulation.getBitRate(data_rate)
-		return (1+self.modulation.roll_off_factor)/t_s/2
+		return (1+self.modulation.roll_off_factor)/t_s
 
 	def computePIRE(self,input_power,theta):
 		return real2dB(input_power)+self.satellite.gain
@@ -91,8 +91,11 @@ class CommunicationSimulation:
 		return self.computeInputReceiverPower(power,theta)-self.computeFinalNoise(data_rate)
 
 	def computeEb_N0(self,power,theta,data_rate):
-		return self.computeC_N0(power,theta,data_rate)* self.computeBandwidth(data_rate)/ \
-				self.modulation.getBitRate(data_rate)*self.modulation.bits_per_symbol
+		return self.computeC_N0(power,theta,data_rate)- real2dB( self.computeBandwidth(data_rate)/ \
+				self.modulation.getBitRate(data_rate)*self.modulation.bits_per_symbol)
+
+	def computeSpectralEfficiency(self,data_rate):
+		return data_rate/self.computeBandwidth(data_rate)
 
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""

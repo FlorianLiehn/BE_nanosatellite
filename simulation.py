@@ -34,3 +34,5 @@ if __name__ == "__main__":
 	print("Input Noise",simu.computeFinalNoise(2e6), "dB")
 	print("C/N0",simu.computeC_N0(1,30,2e6), "dB")
 	print("Eb/N0",simu.computeEb_N0(1,30,2e6), "dB")
+	print("Spectral Efficiency",simu.computeSpectralEfficiency(2e6))
+
