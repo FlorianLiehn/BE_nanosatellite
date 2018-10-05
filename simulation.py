@@ -2,10 +2,23 @@
 
 from src.SimulationComputation import *
 
+import numpy as np
 
 if __name__ == "__main__":
+
+	#Satellite Gain,mispointing & Axial Ratio
+	thetas = np.array([5,10,20,30,40,50,60,70,80,90])
+	gain = np.array([-7.5,-7.2,-5.7,-3.2,-2.3,-1.1,0.8,3.3,6.1,7.4])
+	mispointing = np.array([85,68,62,54,46,37,28,19,9,0])
+	axial_ratio = np.array([16.5,16.5,18.8,20,14.7,7.2,2.5,5.8,5.5,4.5])
+	
+	gain = np.poly1d( np.polyfit(thetas, gain, gain.shape[0]-1) )
+	mispointing = np.poly1d( np.polyfit(thetas, mispointing, mispointing.shape[0]-1) )
+	axial_ratio= np.poly1d( np.polyfit(thetas, axial_ratio, axial_ratio.shape[0]-1) )
+
+
 	#create Satellite
-	gomX=Satellite(420,0.5,54,-3.2,20)
+	gomX=Satellite(420,0.5,mispointing,gain,axial_ratio)
 	#create GroundStation
 	kurou_station=GroundStation(5.1,300,11.125,45,5,0.1,0.65,
 		150,850,290,400,50,-10,-0.5)

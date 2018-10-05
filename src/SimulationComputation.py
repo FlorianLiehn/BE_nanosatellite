@@ -27,7 +27,7 @@ class CommunicationSimulation:
 		return (1+self.modulation.roll_off_factor)/t_s
 
 	def computePIRE(self,input_power,theta):
-		return real2dB(input_power)+self.satellite.gain
+		return real2dB(input_power)+self.satellite.gain(theta)
 
 	def computeDistance(self,theta):
 		#compute Differential latitude
@@ -46,7 +46,7 @@ class CommunicationSimulation:
 		return 2 * real2dB( lamb/(4*pi*d) )
 		
 	def computePolaraisationLoss(self,theta):
-		ar_tx=self.satellite.axial_ratio
+		ar_tx=self.satellite.axial_ratio(theta)
 		ar_rx=self.ground_station.axial_ratio
 		ellipse_angle=self.ground_station.polarisation_ellipse_angle
 
