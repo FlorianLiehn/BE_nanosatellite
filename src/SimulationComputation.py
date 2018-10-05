@@ -97,8 +97,7 @@ class CommunicationSimulation:
 	def computeSpectralEfficiency(self,data_rate):
 		return data_rate/self.computeBandwidth(data_rate)
 
-	def computeMargin(self,theta,input_power,data_rate):
+	def computeMargin(self,power,theta,data_rate):
 		"""detail"""
-		#TODO compute all dynamics values & return margin
-		return 0
+		return self.computeEb_N0(power,theta,data_rate) - self.modulation.Eb_N0
 
