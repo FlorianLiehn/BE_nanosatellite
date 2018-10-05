@@ -63,18 +63,28 @@ class GroundStation:
 
 #TODO create QPSK,8PSK,16PSK patern
 class Modulation:
+	QPSK = "QPSK"
+	PSK8 = "8PSK"
+	PSK16="16PSK"
 
 	"""Def"""
-	def __init__(self,frequence,bits_symbol,Eb_N0,roll_off_factor,
+	def __init__(self,frequence,type_mod,Eb_N0,roll_off_factor,
 				correcting_code_efficiency,min_margin,disponibility):
 		"""init"""
 		self.frequence=frequence
-		self.bits_symbol=bits_symbol
+		self.bits_per_symbol=self.getBitsPerSymbolsWithModulationType(type_mod)
 		self.Eb_N0=Eb_N0
 		self.roll_off_factor=roll_off_factor
 		self.correcting_code_efficiency=correcting_code_efficiency
 		self.min_margin=min_margin
 		self.disponibility=disponibility
+
+	def getBitsPerSymbolsWithModulationType(self,mod):
+		if mod==self.QPSK :return 2
+		if mod==self.PSK8 :return 3
+		if mod==self.PSK16:return 4
+		return 1
+				
 
 #TODO optimize GroundStation & PropagationChannel classes
 #(séparate antenna temp noise & rain)
@@ -112,7 +122,7 @@ if __name__ == "__main__":
 	for i in var_kurou : print(i+" \t= "+str(var_kurou[i]))
 
 	print("\n\tModulation Test")
-	gom_modu=Modulation(8.2,2,9.59,0.25,0.5,3,.99)
+	gom_modu=Modulation(8.2,Modulation.QPSK,9.59,0.25,0.5,3,.99)
 	var_modu=vars(gom_modu)
 	for i in var_modu : print(i+" \t= "+str(var_modu[i]))
 
