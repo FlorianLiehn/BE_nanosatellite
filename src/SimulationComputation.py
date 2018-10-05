@@ -22,6 +22,9 @@ class CommunicationSimulation:
 		#Create & compute EquationComputerClasses
 		#TODO create all classes needed
 
+	def computeBandwidth(self,data_rate):
+		t_s=self.modulation.bits_per_symbol/data_rate
+		return (1+self.modulation.roll_off_factor)/t_s
 
 	def computePIRE(self,input_power,theta):
 		return real2dB(input_power)+self.satellite.gain
@@ -79,7 +82,10 @@ class CommunicationSimulation:
 		return self.computePIRE(power,theta) 			+ \
      			self.computeFreeSpaceLoss(theta)			+ \
       		self.computePolaraisationLoss(theta) 	+ \
-				self.computeFinalReceiverGain()			#+ \
+				self.computeFinalReceiverGain()
+
+	def computeFinalNoise(self,data_rate):
+		return real2dB( self.computeFinalReceiverTemperature() * BOLTZMAN_CONST * self.computeBandwidth(data_rate) )
 
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""

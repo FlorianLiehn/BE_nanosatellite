@@ -10,7 +10,7 @@ if __name__ == "__main__":
 	kurou_station=GroundStation(5.1,300,11.125,45,5,0.1,0.65,
 		150,850,290,400,50,-10,-0.5)
 	#create Modulation
-	gom_modu=Modulation(8.2,2,9.59,0.25,0.5,3,.99)
+	gom_modu=Modulation(8.2,Modulation.QPSK,9.59,0.25,0.5,3,.99)
 	#Create PropagationChannel
 	propa=PropagationChannel(85,-0.2,20,45,275)
 	#Create the final simulation
@@ -28,5 +28,7 @@ if __name__ == "__main__":
 	print("Antenna gain Real",simu.computeGroundAntennaGain(),"dB")
 	print("Reception Gain",simu.computeFinalReceiverGain(),"dB")
 	print("Figure of Merit",simu.computeFinalReceiverFigureOfMerit())
-
-	print("Input Power",simu.computeInputReceiverPower(1,30))
+	print("")
+	print("Input Power",simu.computeInputReceiverPower(1,30), "dBw")
+	print("Bandwidth",simu.computeBandwidth(2e6), "Hz")
+	print("Input Noise",simu.computeFinalNoise(2e6), "dB")
