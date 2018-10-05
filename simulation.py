@@ -24,6 +24,7 @@ if __name__ == "__main__":
 	print("Receiver Gain",simu.ground_station.gain_receiver,"dB")
 	print("Receiver Temp",simu.ground_station.temp_receiver,"K")
 	print("Reception Temp",simu.computeFinalReceiverTemperature(),"K")
-	print("Antenna gain",simu.computeGroundGain(0),"dB")
+	print("Antenna gain Perfect",simu.computeGroundGain(False),"dB")
+	print("Antenna gain Real",simu.computeGroundGain(),"dB")
 	print("Reception Gain",simu.computeFinalReceiverGain(),"dB")
 	print("Figure of Merit",simu.computeFinalReceiverFigureOfMerit())

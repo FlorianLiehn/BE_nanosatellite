@@ -62,11 +62,13 @@ class CommunicationSimulation:
 		return lin_cable_gain*self.propa_channel.input_antenna_noise + \
 				(1-lin_cable_gain)*self.ground_station.temp_cable + self.ground_station.temp_receiver
 
-	def computeGroundGain(self,mispointing=True):#TODO compute mispointing
+	def computeGroundGain(self,mispointing=True):
 		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
 		theta3dB=70*lamb/self.ground_station.antenna_diameter
-		perfect_gain=36000/theta3dB**2
-		return real2dB(perfect_gain)
+		perfect_gain=real2dB(36000/theta3dB**2)
+
+		if mispointing: perfect_gain-= 12* (self.ground_station.mispointing/theta3dB)**2
+		return perfect_gain
 
 	def computeFinalReceiverFigureOfMerit(self):
 		T0=290
