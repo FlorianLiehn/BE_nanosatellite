@@ -55,14 +55,14 @@ class CommunicationSimulation:
 
 
 	def computeFinalReceiverGain(self):
-		return self.ground_station.gain_receiver+self.ground_station.gain_cable+ self.computeGroundGain()
+		return self.ground_station.gain_receiver+self.ground_station.gain_cable+ self.computeGroundAntennaGain()
 
 	def computeFinalReceiverTemperature(self):
 		lin_cable_gain=dB2real(self.ground_station.gain_cable)
 		return lin_cable_gain*self.propa_channel.input_antenna_noise + \
 				(1-lin_cable_gain)*self.ground_station.temp_cable + self.ground_station.temp_receiver
 
-	def computeGroundGain(self,mispointing=True):
+	def computeGroundAntennaGain(self,mispointing=True):
 		lamb=LIGHT_SPEED/(self.modulation.frequence*1e9)#GHz
 		theta3dB=70*lamb/self.ground_station.antenna_diameter
 		perfect_gain=real2dB(36000/theta3dB**2)
@@ -75,6 +75,12 @@ class CommunicationSimulation:
 		fig_of_merit=self.computeFinalReceiverTemperature()/T0
 		return fig_of_merit/( 1-1/dB2real(self.computeFinalReceiverGain()) )
 	
+	def computeInputReceiverPower(self,power,theta):#TODO use rain attenuation
+		return self.computePIRE(power,theta) 			+ \
+     			self.computeFreeSpaceLoss(theta)			+ \
+      		self.computePolaraisationLoss(theta) 	+ \
+				self.computeFinalReceiverGain()			#+ \
+
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""
 		#TODO compute all dynamics values & return margin
