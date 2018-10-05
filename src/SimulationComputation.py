@@ -24,7 +24,7 @@ class CommunicationSimulation:
 
 	def computeBandwidth(self,data_rate):
 		t_s=self.modulation.bits_per_symbol/data_rate
-		return (1+self.modulation.roll_off_factor)/t_s
+		return (1+self.modulation.roll_off_factor)/t_s/2
 
 	def computePIRE(self,input_power,theta):
 		return real2dB(input_power)+self.satellite.gain
