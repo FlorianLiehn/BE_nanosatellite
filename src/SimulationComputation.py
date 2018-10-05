@@ -90,6 +90,10 @@ class CommunicationSimulation:
 	def computeC_N0(self,power,theta,data_rate):
 		return self.computeInputReceiverPower(power,theta)-self.computeFinalNoise(data_rate)
 
+	def computeEb_N0(self,power,theta,data_rate):
+		return self.computeC_N0(power,theta,data_rate)* \
+			self.computeBandwidth(data_rate)/data_rate*self.modulation.bits_per_symbol
+
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""
 		#TODO compute all dynamics values & return margin
