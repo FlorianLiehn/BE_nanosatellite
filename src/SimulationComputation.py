@@ -23,7 +23,7 @@ class CommunicationSimulation:
 		#TODO create all classes needed
 
 	def computeBandwidth(self,data_rate):
-		t_s=self.modulation.bits_per_symbol/data_rate
+		t_s=self.modulation.bits_per_symbol/self.modulation.getBitRate(data_rate)
 		return (1+self.modulation.roll_off_factor)/t_s/2
 
 	def computePIRE(self,input_power,theta):
@@ -91,8 +91,8 @@ class CommunicationSimulation:
 		return self.computeInputReceiverPower(power,theta)-self.computeFinalNoise(data_rate)
 
 	def computeEb_N0(self,power,theta,data_rate):
-		return self.computeC_N0(power,theta,data_rate)* \
-			self.computeBandwidth(data_rate)/data_rate*self.modulation.bits_per_symbol
+		return self.computeC_N0(power,theta,data_rate)* self.computeBandwidth(data_rate)/ \
+				self.modulation.getBitRate(data_rate)*self.modulation.bits_per_symbol
 
 	def computeMargin(self,theta,input_power,data_rate):
 		"""detail"""

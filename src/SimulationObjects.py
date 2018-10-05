@@ -84,6 +84,9 @@ class Modulation:
 		if mod==self.PSK8 :return 3
 		if mod==self.PSK16:return 4
 		return 1
+
+	def getBitRate(self,data_rate):
+		return data_rate/self.correcting_code_efficiency
 				
 
 #TODO optimize GroundStation & PropagationChannel classes
