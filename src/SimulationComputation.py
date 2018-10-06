@@ -2,8 +2,10 @@
 
 if __name__=="__main__":
 	from SimulationObjects import *
+	from RainAttenuation import *
 else:
 	from src.SimulationObjects import *
+	from src.RainAttenuation import *
 
 #TODO make all comments (why class, units of each parameters & where come from the formula)
 
@@ -19,8 +21,8 @@ class CommunicationSimulation:
 		self.ground_station=ground_station
 		self.modulation=modulation
 		self.propa_channel=propa_channel
-		#Create & compute EquationComputerClasses
-		#TODO create all classes needed
+		#Create RainAttenuation class
+		self.rain_attenuation=RainSpecificAttenuation(self.propa_channel.r0_01_rainfall_rate,self.modulation.frequence)
 
 	def computeBandwidth(self,data_rate):
 		t_s=self.modulation.bits_per_symbol/self.modulation.getBitRate(data_rate)

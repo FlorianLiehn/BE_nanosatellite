@@ -32,6 +32,7 @@ if __name__ == "__main__":
 	print("puissance:",simu.computePIRE(1,90)," dBw")
 	print("distance:",simu.computeDistance(45)/1000,"km")
 	print("perte espace libre:",simu.computeFreeSpaceLoss(30),"dB")
+	print("Rain attenuation:",simu.rain_attenuation.a1_attenuation,"dB")
 	print("Polarisation loss",simu.computePolaraisationLoss(30),"dB")
 	print("Antenna Temp",simu.propa_channel.input_antenna_noise,"K")
 	print("Receiver Gain",simu.ground_station.gain_receiver,"dB")
