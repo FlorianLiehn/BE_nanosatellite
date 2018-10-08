@@ -20,7 +20,7 @@ if __name__ == "__main__":
 	#create Satellite
 	gomX=Satellite(420,0.5,mispointing,gain,axial_ratio)
 	#create GroundStation
-	kurou_station=GroundStation(5.1,300,11.125,45,5,0.1,0.65,
+	kurou_station=GroundStation(5.1,0.3,11.125,45,5,0.1,0.65,
 		150,850,290,400,50,-10,-0.5)
 	#create Modulation
 	gom_modu=Modulation(8.2,Modulation.QPSK,9.59,0.25,0.5,3,.99)
@@ -33,7 +33,8 @@ if __name__ == "__main__":
 	print("Distance:",simu.computeDistance(45)/1000,"km")
 	print("Perte espace libre:",simu.computeFreeSpaceLoss(30),"dB")
 	simu.rain_attenuation.computeAttenuation(30)
-	print("Rain attenuation:",simu.rain_attenuation.a1_attenuation,"dB")
+	print("Rain attenuation 0.01%:",simu.rain_attenuation.a0_01_attenuation,"dB")
+	print("Rain attenuation    1%:",simu.rain_attenuation.a1_attenuation,"dB")
 	print("Polarisation loss",simu.computePolaraisationLoss(30),"dB")
 	print("Antenna Temp",simu.propa_channel.input_antenna_noise,"K")
 	print("Receiver Gain",simu.ground_station.gain_receiver,"dB")
