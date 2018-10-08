@@ -23,7 +23,7 @@ class RainSpecificAttenuation :
     def formuleCoefficient(self,matrice,f):
         somme = 0
         for i in range(len(matrice)-2):
-            somme+= matrice[i][0]*exp(-((log10(f)-matrice[i][1])/matrice[i][2])**2)
+            somme+= matrice[i][0]*exp(-((log10(f-matrice[i][1]))/matrice[i][2])**2)
 
         somme+= matrice[-2]*log10(f) + matrice[-1]
 
