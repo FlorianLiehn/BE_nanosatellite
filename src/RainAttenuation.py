@@ -25,7 +25,7 @@ class RainSpecificAttenuation :
         for i in range(len(matrice)-2):
             somme+= matrice[i][0]*exp(-((log10(f)-matrice[i][1])/matrice[i][2])**2)
 
-            somme+= matrice[-2]*log10(f) + matrice[-1]
+        somme+= matrice[-2]*log10(f) + matrice[-1]
 
         return somme
 
@@ -38,7 +38,7 @@ class RainSpecificAttenuation :
 
         lg=ls*cos(self.theta*pi/180)
 
-        r0_01=1/(1+0.78*(lg*self.rain_specific_attenuation/frequence)**0.5 - 0.38*(1-exp(-2*lg)))
+        r0_01=1/(1+0.78*((lg*self.rain_specific_attenuation)/frequence)**0.5 - 0.38*(1-exp(-2*lg)))
 
         z=degrees(atan((self.hr-self.hs)/(lg*r0_01)))
 
