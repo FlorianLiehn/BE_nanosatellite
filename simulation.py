@@ -29,9 +29,10 @@ if __name__ == "__main__":
 	#Create the final simulation
 	simu=CommunicationSimulation(gomX,kurou_station,gom_modu,propa)
 
-	print("puissance:",simu.computePIRE(1,90)," dBw")
-	print("distance:",simu.computeDistance(45)/1000,"km")
-	print("perte espace libre:",simu.computeFreeSpaceLoss(30),"dB")
+	print("Puissance:",simu.computePIRE(1,90)," dBw")
+	print("Distance:",simu.computeDistance(45)/1000,"km")
+	print("Perte espace libre:",simu.computeFreeSpaceLoss(30),"dB")
+	simu.rain_attenuation.computeAttenuation(30)
 	print("Rain attenuation:",simu.rain_attenuation.a1_attenuation,"dB")
 	print("Polarisation loss",simu.computePolaraisationLoss(30),"dB")
 	print("Antenna Temp",simu.propa_channel.input_antenna_noise,"K")
