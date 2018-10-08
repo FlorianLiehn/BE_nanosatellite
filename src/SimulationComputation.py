@@ -82,9 +82,11 @@ class CommunicationSimulation:
 		return fig_of_merit/( 1-1/dB2real(self.computeFinalReceiverGain()) )
 	
 	def computeInputReceiverPower(self,power,theta):#TODO use rain attenuation
+		self.rain_attenuation.computeAttenuation(theta)
 		return self.computePIRE(power,theta) 			+ \
      			self.computeFreeSpaceLoss(theta)			+ \
-      		self.computePolaraisationLoss(theta) 	+ \
+      		self.computePolaraisationLoss(theta) 	- \
+      		self.rain_attenuation.a0_01_attenuation+ \
 				self.computeFinalReceiverGain()
 
 	def computeFinalNoise(self,data_rate):

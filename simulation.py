@@ -2,6 +2,7 @@
 
 from src.SimulationComputation import *
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == "__main__":
@@ -53,4 +54,10 @@ if __name__ == "__main__":
 	print("Spectral Efficiency",simu.computeSpectralEfficiency(2e6))
 	print("")
 	print("Marge",simu.computeMargin(1,30,2e6),"dB")
+
+	margins=[]
+	for i in thetas: margins.append(simu.computeMargin(1,i,2e6))
+	print(margins)
+	plt.plot(thetas,margins)
+	plt.show()
 
