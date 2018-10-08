@@ -27,13 +27,13 @@ class Satellite:
 class GroundStation:
 #TODO create a NoisedComponant that handle Temp & gain for a componant and store a list
 	"""Def"""
-	def __init__(self,Latitude,altitude,antenna_diameter,
+	def __init__(self,latitude,altitude,antenna_diameter,
 					polarisation_ellipse_angle,min_elevation,
 					mispointing,antenna_efficiency,
 					temp_LNA,temp_mixer,temp_cable,temp_IFA,
 					gain_LNA,gain_mixer,gain_cable):
 		"""init"""
-		self.Latitude=Latitude
+		self.latitude=latitude
 		self.altitude=altitude
 		self.antenna_diameter=antenna_diameter
 		self.polarisation_ellipse_angle=polarisation_ellipse_angle

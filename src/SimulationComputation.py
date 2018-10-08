@@ -22,7 +22,8 @@ class CommunicationSimulation:
 		self.modulation=modulation
 		self.propa_channel=propa_channel
 		#Create RainAttenuation class
-		self.rain_attenuation=RainSpecificAttenuation(self.propa_channel.r0_01_rainfall_rate,self.modulation.frequence)
+		self.rain_attenuation=RainSpecificAttenuation(self.propa_channel.r0_01_rainfall_rate,self.modulation.frequence,
+					self.satellite.altitude,self.ground_station.altitude,self.ground_station.latitude)
 
 	def computeBandwidth(self,data_rate):
 		t_s=self.modulation.bits_per_symbol/self.modulation.getBitRate(data_rate)
