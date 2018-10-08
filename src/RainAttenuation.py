@@ -64,7 +64,7 @@ class RainSpecificAttenuation :
     def __init__(self,r0_01_rainfall_rate,frequence,sat_alti,station_alti,latitude):
                 
         self.h0=2.720
-        self.hr=0 + 0.36      
+        self.hr=self.h0 + 0.36      
         self.hs=station_alti  #altitude station sol en km
         self.phi=latitude       #°N
         self.r0_01_rainfall_rate=r0_01_rainfall_rate
