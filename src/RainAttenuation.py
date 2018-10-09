@@ -2,7 +2,7 @@
 
 
 
-from math import *
+from numpy import *
     
 
 #TODO make all comments (why class, units of each parameters & where come from the formula)
@@ -40,7 +40,7 @@ class RainSpecificAttenuation :
 
         r0_01=1/(1+0.78*((lg*self.rain_specific_attenuation)/frequence)**0.5 - 0.38*(1-exp(-2*lg)))
 
-        z=degrees(atan((self.hr-self.hs)/(lg*r0_01)))
+        z=degrees(arctan((self.hr-self.hs)/(lg*r0_01)))
 
         if z>self.theta:
             lr=lg*r0_01/cos(self.theta*pi/180)

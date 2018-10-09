@@ -9,10 +9,6 @@ else:
 
 #TODO make all comments (why class, units of each parameters & where come from the formula)
 
-
-
-                
-
 class CommunicationSimulation:
 	"""Def"""
 	def __init__(self,satellite,ground_station,modulation,propa_channel):
@@ -34,7 +30,7 @@ class CommunicationSimulation:
 
 	def computeDistance(self,theta):
 		#compute Differential latitude
-		diff_lat = 90 - theta - 180/pi*asin( 
+		diff_lat = 90 - theta - 180/pi*arcsin( 
 			EARTH_RADUIS/(EARTH_RADUIS+self.satellite.altitude)*cos(pi/180*theta) )
 		#compute d^2
 		d2 = EARTH_RADUIS**2 + (EARTH_RADUIS+self.satellite.altitude)**2 \
@@ -81,12 +77,25 @@ class CommunicationSimulation:
 		fig_of_merit=self.computeFinalReceiverTemperature()/T0
 		return fig_of_merit/( 1-1/dB2real(self.computeFinalReceiverGain()) )
 	
-	def computeInputReceiverPower(self,power,theta):#TODO use rain attenuation
-		self.rain_attenuation.computeAttenuation(theta)
+	def computeAllRainAttenuation(self,thetas):
+		#int
+		if isinstance(thetas,int):
+			self.rain_attenuation.computeAttenuation(thetas)
+			return self.rain_attenuation.a0_01_attenuation
+		#array
+		rain_attenuation_result=zeros(len(thetas))
+		for i in range(len(thetas)):
+			self.rain_attenuation.computeAttenuation(thetas[i])
+			rain_attenuation_result[i]=self.rain_attenuation.a0_01_attenuation
+		return rain_attenuation_result
+
+	def computeInputReceiverPower(self,power,theta):
+		rain_attenuation_result=self.computeAllRainAttenuation(theta)
+
 		return self.computePIRE(power,theta) 			+ \
      			self.computeFreeSpaceLoss(theta)			+ \
       		self.computePolaraisationLoss(theta) 	- \
-      		self.rain_attenuation.a0_01_attenuation+ \
+      		rain_attenuation_result						+ \
 				self.computeFinalReceiverGain()
 
 	def computeFinalNoise(self,data_rate):

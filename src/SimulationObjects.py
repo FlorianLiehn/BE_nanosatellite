@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-from math import pi,asin,cos,log10,exp,sqrt
+from numpy import pi,arcsin,cos,log10,exp,sqrt,zeros
 
 #TODO make all comments (why class and units of each parameters)
 
