@@ -4,6 +4,7 @@ from src.SimulationComputation import *
 
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.interpolate import interp1d
 
 if __name__ == "__main__":
 
@@ -13,9 +14,9 @@ if __name__ == "__main__":
 	mispointing = np.array([85,68,62,54,46,37,28,19,9,0])
 	axial_ratio = np.array([16.5,16.5,18.8,20,14.7,7.2,2.5,5.8,5.5,4.5])
 	
-	gain = np.poly1d( np.polyfit(thetas, gain, gain.shape[0]-1) )
-	mispointing = np.poly1d( np.polyfit(thetas, mispointing, mispointing.shape[0]-1) )
-	axial_ratio= np.poly1d( np.polyfit(thetas, axial_ratio, axial_ratio.shape[0]-1) )
+	gain = interp1d( thetas, gain )
+	mispointing = interp1d( thetas, mispointing )
+	axial_ratio = interp1d( thetas, axial_ratio )
 
 
 	#create Satellite
@@ -55,8 +56,10 @@ if __name__ == "__main__":
 	print("")
 	print("Marge",simu.computeMargin(1,30,2e6),"dB")
 
+	#Second part Exploit different values
+	thetas = np.linspace(5,90,100)
+
 	margins=simu.computeMargin(1,thetas,2e6)
-	print(margins)
 	plt.plot(thetas,margins)
 	plt.show()
 
