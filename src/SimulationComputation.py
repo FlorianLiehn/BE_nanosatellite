@@ -91,7 +91,7 @@ class CommunicationSimulation:
 
 	def computeInputReceiverPower(self,power,theta):
 		rain_attenuation_result=self.computeAllRainAttenuation(theta)
-		print(rain_attenuation_result)
+
 		return self.computePIRE(power,theta) 			+ \
      			self.computeFreeSpaceLoss(theta)			+ \
       		self.computePolaraisationLoss(theta) 	- \

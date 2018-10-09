@@ -58,8 +58,23 @@ if __name__ == "__main__":
 
 	#Second part Exploit different values
 	thetas = np.linspace(5,90,100)
+	data_rates = np.linspace(100e6,500e6,100)
+	input_powers = np.linspace(10e-3,1,100)
+	#Compute all Tests
+	nominal_margins = simu.computeMargin(1,thetas,2e6)
+	great_data_rate_margins = simu.computeMargin(1,thetas,4.8e6)
+	fixed_elevation_margins_rates = simu.computeMargin(1,20,data_rates)
+	fixed_elevation_margins_powers = simu.computeMargin(input_powers,20,4.8e6)
+	#Plot results
+	#TODO add legend & 3dB margin points
+	plt.figure(1)
+	plt.plot(thetas,nominal_margins)
+	plt.plot(thetas,great_data_rate_margins)
 
-	margins=simu.computeMargin(1,thetas,2e6)
-	plt.plot(thetas,margins)
+	plt.figure(2)
+	plt.plot(data_rates,fixed_elevation_margins_rates)	
+	plt.figure(3)
+	plt.plot(input_powers,fixed_elevation_margins_powers)	
+
 	plt.show()
 
