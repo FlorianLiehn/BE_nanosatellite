@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-
+# -*- coding: utf-8 -*-
 if __name__=="__main__":
 	from SimulationObjects import *
 	from RainAttenuation import *
