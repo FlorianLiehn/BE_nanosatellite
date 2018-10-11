@@ -3,9 +3,9 @@
 from numpy import pi,arcsin,cos,log10,exp,sqrt,zeros,array
 
 """
-	This module give some usefull class that will contain all satellite communication parameters.
+	This module give some usefull classes that will contain all satellites communication parameters.
 	The power, elevation & datarate are not represented here.
-	The module provide the class:
+	The module provide the classes:
 		-Satellite
 		-GroundStation
 		-Modulation
