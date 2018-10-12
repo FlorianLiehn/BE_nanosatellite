@@ -31,13 +31,19 @@ if __name__ == "__main__":
 	#Create the final simulation
 	simu=CommunicationSimulation(gomX,kurou_station,gom_modu,propa)
 
-	print("Puissance:",simu.computePIRE(1,90)," dBw")
-	print("Distance:",simu.computeDistance(45)/1000,"km")
-	print("Perte espace libre:",simu.computeFreeSpaceLoss(30),"dB")
-	simu.rain_attenuation.computeAttenuation(30)
+	demo_elevation=30		#°
+	demo_power=1			#W
+	demo_data_rate=2e6	#Hz
+	print("\tDemo elevation {}° input power {}W DataRate {}MHz".format(
+						demo_elevation,demo_power,demo_data_rate/1e6) )
+	print("Puissance:",simu.computePIRE(demo_power,demo_elevation)," dBw")
+	print("Distance:",simu.computeDistance(demo_elevation)/1000,"km")
+	print("Perte espace libre:",simu.computeFreeSpaceLoss(demo_elevation),"dB")
+	simu.rain_attenuation.computeAttenuation(demo_elevation)
+	#TODO Need the d)e)f) answers
 	print("Rain attenuation 0.01%:",simu.rain_attenuation.a0_01_attenuation,"dB")
 	print("Rain attenuation    1%:",simu.rain_attenuation.a1_attenuation,"dB")
-	print("Polarisation loss",simu.computePolaraisationLoss(30),"dB")
+	print("Polarisation loss",simu.computePolaraisationLoss(demo_elevation),"dB")
 	print("Antenna Temp",simu.propa_channel.input_antenna_noise,"K")
 	print("Receiver Gain",simu.ground_station.gain_receiver,"dB")
 	print("Receiver Temp",simu.ground_station.temp_receiver,"K")
@@ -47,34 +53,52 @@ if __name__ == "__main__":
 	print("Reception Gain",simu.computeFinalReceiverGain(),"dB")
 	print("Figure of Merit",simu.computeFinalReceiverFigureOfMerit())
 	print("")
-	print("Input Power",simu.computeInputReceiverPower(1,30), "dBw")
-	print("Bandwidth",simu.computeBandwidth(2e6), "Hz")
-	print("Input Noise",simu.computeFinalNoise(2e6), "dB")
-	print("C/N0",simu.computeC_N0(1,30,2e6), "dB")
-	print("Eb/N0",simu.computeEb_N0(1,30,2e6), "dB")
-	print("Spectral Efficiency",simu.computeSpectralEfficiency(2e6))
+	print("Input Power",simu.computeInputReceiverPower(demo_power,demo_elevation), "dBw")
+	print("Input Noise",simu.computeFinalNoise(demo_data_rate), "dB")
+	print("C/N0",simu.computeC_N0(demo_power,demo_elevation,demo_data_rate), "dB")
+	print("Eb/N0",simu.computeEb_N0(demo_power,demo_elevation,demo_data_rate), "dB")
+	print("Bandwidth",simu.computeBandwidth(demo_data_rate), "Hz")
+	print("Spectral Efficiency",simu.computeSpectralEfficiency(demo_data_rate))
 	print("")
 	print("Marge",simu.computeMargin(1,30,2e6),"dB")
 
+	try:
+		choice=input("Press a key to process full simulation (q to quit): ")
+		if "q" in choice.lower():raise Exception("User Exit")
+	except:
+		exit(0)	
 	#Second part Exploit different values
 	thetas = np.linspace(5,90,100)
-	data_rates = np.linspace(100e6,500e6,100)
-	input_powers = np.linspace(10e-3,1,100)
+	data_rates = np.linspace(100e6,1000e6,100)
+	input_powers = np.linspace(1e-3,1,100)
 	#Compute all Tests
 	nominal_margins = simu.computeMargin(1,thetas,2e6)
 	great_data_rate_margins = simu.computeMargin(1,thetas,4.8e6)
 	fixed_elevation_margins_rates = simu.computeMargin(1,20,data_rates)
 	fixed_elevation_margins_powers = simu.computeMargin(input_powers,20,4.8e6)
 	#Plot results
-	#TODO add legend & 3dB margin points
 	plt.figure(1)
-	plt.plot(thetas,nominal_margins)
-	plt.plot(thetas,great_data_rate_margins)
+	plt.plot(thetas,nominal_margins,label='2MHz')
+	plt.plot(thetas,great_data_rate_margins,label='4.8MHz')
+	plt.plot(thetas,[simu.modulation.min_margin for i in thetas],"r--")
+	plt.legend(loc=4)
+	plt.title("Marge en fonction de l'élevation à 1W")
+	plt.xlabel("°")
+	plt.ylabel("dB")
 
 	plt.figure(2)
 	plt.plot(data_rates,fixed_elevation_margins_rates)	
+	plt.plot(data_rates,[simu.modulation.min_margin for i in data_rates],"r--")
+	plt.title("Marge en fonction du débit à 1W et 20° d'élévation")
+	plt.xlabel("Hz")
+	plt.ylabel("dB")
+
 	plt.figure(3)
 	plt.plot(input_powers,fixed_elevation_margins_powers)	
+	plt.plot(input_powers,[simu.modulation.min_margin for i in input_powers],"r--")
+	plt.title("Marge en fonction de la puissance d'émission à 20° d'élévation et 4.8MHz")
+	plt.xlabel("W")
+	plt.ylabel("dB")
 
 	plt.show()
 

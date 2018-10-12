@@ -5,12 +5,6 @@
 from numpy import *
     
 
-#TODO make all comments (why class, units of each parameters & where come from the formula)
-
-
-
-
-
 class RainSpecificAttenuation :
 
 #Classe englobant les variables et calculs nécessaires au calcul de l'atténuation spécifique de pluie.
